@@ -6,8 +6,8 @@ public class Main {
         while (true) {
             menu();
             Scanner scan = new Scanner(System.in);
-            int command = scan.nextInt();
-            switch (command) {
+            int choice = scan.nextInt();
+            switch (choice) {
                 case 1 -> metod1();
                 case 2 -> metod2();
                 case 3 -> metod3();
