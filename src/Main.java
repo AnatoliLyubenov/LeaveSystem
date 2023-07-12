@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
+    private static int recordCount = 0;
 
     public static void menu() {
         System.out.println("The system awaits your selection:");
@@ -20,10 +21,11 @@ public class Main {
     }
 
     public static String[][] initializeLeaves() {
-        String[][] leaves = new String[2][8];
+        String[][] leaves = new String[20][8];
         for (String[] leave : leaves) {
             Arrays.fill(leave, "n/a");
         }
+        recordCount = 0;
         return leaves;
     }
 
@@ -140,11 +142,11 @@ public class Main {
         return true;
     }
 
+
     public static String[][] readFromFile(String fileName) {
         List<String[]> leaves = new ArrayList<>();
 
-        // Четене на данни от файл
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             StringBuilder codeBuilder = new StringBuilder();
             String line;
 
@@ -152,6 +154,7 @@ public class Main {
                 String[] singleLeave = line.split(",");
                 leaves.add(singleLeave);
                 if (!singleLeave[0].equals("n/a")) {
+                    recordCount++;
                 }
             }
         } catch (IOException e) {
@@ -195,6 +198,7 @@ public class Main {
             e.printStackTrace();
         }
     }
+
     public static void showEmployeeLeave(String[][] leaves) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter employee name: ");
@@ -229,6 +233,7 @@ public class Main {
                 leaves[i][7] = newStatus;
             }
         }
+
     }
 
     public static void main(String[] args) {
@@ -243,14 +248,14 @@ public class Main {
             leaves = initializeLeaves();
         }
 
-
         while (true) {
             menu();
             Scanner scan = new Scanner(System.in);
             int choice = scan.nextInt();
             switch (choice) {
                 case 1 -> {
-                    insertInfoByLeave(leaves);
+                    insertInfoByLeave(leaves, recordCount);
+                    ++recordCount;
                     break;
                 }
                 case 2 -> {
@@ -258,11 +263,11 @@ public class Main {
                     break;
                 }
                 case 3 -> {
-                    showEmployeeLeave();
+                    showEmployeeLeave(leaves);
                     break;
                 }
                 case 4 -> {
-                    editStatusOfLeave();
+                    editStatusOfLeave(leaves);
                     break;
                 }
                 case 5 -> {
@@ -272,4 +277,5 @@ public class Main {
             }
         }
     }
+
 }
