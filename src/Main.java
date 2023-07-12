@@ -195,6 +195,41 @@ public class Main {
             e.printStackTrace();
         }
     }
+    public static void showEmployeeLeave(String[][] leaves) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter employee name: ");
+        String employeeName = scan.nextLine();
+        for (int i = 0; i < leaves.length; i++) {
+            if (employeeName.equals(leaves[i][1])) {
+                for (int j = 0; j < 8; j++) {
+                    System.out.print(leaves[i][j] + ", ");
+                }
+                System.out.println();
+            }
+
+        }
+    }
+
+    public static void editStatusOfLeave(String[][] leaves) {
+        showAllLeaves(leaves);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter number of leave: ");
+        String leaveNumber = scanner.nextLine();
+        System.out.println("Enter new status: ");
+        String newStatus = scanner.nextLine();
+
+        if (!newStatus.equalsIgnoreCase("approved")
+                && !newStatus.equalsIgnoreCase("rejected")
+                && !newStatus.equalsIgnoreCase("pending")) {
+            System.out.println("Please enter valid new status(approved, rejected and pending): ");
+            newStatus = scanner.nextLine();
+        }
+        for (int i = 0; i < leaves.length; i++) {
+            if (leaveNumber.equals(leaves[i][0])) {
+                leaves[i][7] = newStatus;
+            }
+        }
+    }
 
     public static void main(String[] args) {
         String FILE_NAME = "RequestLeave.txt";
