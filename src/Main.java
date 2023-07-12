@@ -1,6 +1,9 @@
+import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -137,7 +140,73 @@ public class Main {
         return true;
     }
 
+    public static String[][] readFromFile(String fileName) {
+        List<String[]> leaves = new ArrayList<>();
+
+        // Четене на данни от файл
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            StringBuilder codeBuilder = new StringBuilder();
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] singleLeave = line.split(",");
+                leaves.add(singleLeave);
+                if (!singleLeave[0].equals("n/a")) {
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+            e.printStackTrace();
+        }
+
+        String[][] array = new String[leaves.size()][];
+        for (int i = 0; i < leaves.size(); i++) {
+            array[i] = leaves.get(i);
+        }
+        return array;
+    }
+
+    public static void writeToFile(String fileName, String[][] leaves) {
+        // Запис на данните в същия файл
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+
+            for (int i = 0; i < leaves.length; i++) {
+                writer.write(leaves[i][0]);
+                writer.write(",");
+                writer.write(leaves[i][1]);
+                writer.write(",");
+                writer.write(leaves[i][2]);
+                writer.write(",");
+                writer.write(leaves[i][3]);
+                writer.write(",");
+                writer.write(leaves[i][4]);
+                writer.write(",");
+                writer.write(leaves[i][5]);
+                writer.write(",");
+                writer.write(leaves[i][6]);
+                writer.write(",");
+                writer.write(leaves[i][7]);
+                writer.write("\r\n");
+            }
+
+            System.out.println("Data successfully written to file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while writing the file.");
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
+        String FILE_NAME = "RequestLeave.txt";
+
+        String[][] leaves = null;
+
+        File f = new File(FILE_NAME);
+        if (f.exists() && !f.isDirectory()) {
+            leaves = readFromFile(FILE_NAME);
+        } else {
+            leaves = initializeLeaves();
+        }
 
 
         while (true) {
@@ -146,24 +215,26 @@ public class Main {
             int choice = scan.nextInt();
             switch (choice) {
                 case 1 -> {
-                    insertInfoByLeave();
-
+                    insertInfoByLeave(leaves);
                     break;
                 }
                 case 2 -> {
-                    showAllLeaves();
+                    showAllLeaves(leaves);
                     break;
                 }
-                //  case 3 -> {
-                //    showEmployeeLeave(leaves);
-                //  break;
+                case 3 -> {
+                    showEmployeeLeave();
+                    break;
+                }
+                case 4 -> {
+                    editStatusOfLeave();
+                    break;
+                }
+                case 5 -> {
+                    writeToFile(FILE_NAME, leaves);
+                    System.exit(0);
+                }
             }
-            // case 4 -> {
-            //   editStatusOfLeave(leaves);
-            // break;
         }
-        //case 5 -> {
-        //  writeToFile(FILE_NAME, leaves);
-        System.exit(0);
     }
 }
