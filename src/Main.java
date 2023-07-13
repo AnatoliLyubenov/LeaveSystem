@@ -108,7 +108,6 @@ public class Main {
                 !leaves[leaveCounter][6].equalsIgnoreCase("unpaid")) {
             System.out.println("Invalid type of leave! Enter valid type of leave: ");
             leaves[leaveCounter][6] = scan.next();
-            return;
         }
 
         leaves[leaveCounter][7] = "pending";
