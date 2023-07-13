@@ -21,7 +21,7 @@ public class Main {
     }
 
     public static String[][] initializeLeaves() {
-        String[][] leaves = new String[2][8];
+        String[][] leaves = new String[20][8];
         for (String[] leave : leaves) {
             Arrays.fill(leave, "n/a");
         }
@@ -106,7 +106,7 @@ public class Main {
 
         if (!leaves[leaveCounter][6].equalsIgnoreCase("paid") &&
                 !leaves[leaveCounter][6].equalsIgnoreCase("unpaid")) {
-            System.out.println("Invalid type of leave. Enter valid type of leave");
+            System.out.println("Invalid type of leave! Enter valid type of leave: ");
             leaves[leaveCounter][6] = scan.next();
             return;
         }
@@ -147,7 +147,7 @@ public class Main {
     public static String[][] readFromFile(String fileName) {
         List<String[]> leaves = new ArrayList<>();
 
-            try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             StringBuilder codeBuilder = new StringBuilder();
             String line;
 
@@ -171,7 +171,7 @@ public class Main {
     }
 
     public static void writeToFile(String fileName, String[][] leaves) {
-        // Запис на данните в същия файл
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
 
             for (int i = 0; i < leaves.length; i++) {
