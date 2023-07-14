@@ -40,7 +40,7 @@ public class Main {
                 System.out.println("Start date: " + leaves[i][4] + "/");
                 System.out.println("End date: " + leaves[i][5] + "/");
                 System.out.println("Type of leave: " + leaves[i][6] + "/");
-                System.out.println("Status:" + leaves[i][7] + "/");
+                System.out.println("Status: " + leaves[i][7] + "/");
                 System.out.println();
             }
         }
@@ -48,7 +48,7 @@ public class Main {
     }
 
     public static void insertInfoByLeave(String[][] leaves, int leaveCounter) {
-        System.out.println("Please enter the following details:");
+        System.out.println("Please enter the following details: ");
         Scanner scan = new Scanner(System.in);
 
         System.out.print("Enter name: ");
